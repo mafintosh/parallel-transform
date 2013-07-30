@@ -64,7 +64,7 @@ ParallelTransform.prototype._drain = function() {
 		this.push(data);
 	}
 
-	if (!this._drained()) return;
+	if (!this._drained() || !this._ondrain) return;
 
 	var ondrain = this._ondrain;
 	this._ondrain = null;
