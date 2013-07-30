@@ -55,6 +55,7 @@ ParallelTransform.prototype._transform = function(chunk, enc, callback) {
 ParallelTransform.prototype._flush = function(callback) {
 	this._flushed = true;
 	this._ondrain = callback;
+	this._drain();
 };
 
 ParallelTransform.prototype._drain = function() {
