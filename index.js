@@ -1,5 +1,6 @@
 var Transform = require('stream').Transform;
 var cyclist = require('cyclist');
+var util = require('util');
 
 var SKIP_BUFFER = new Buffer(0);
 
@@ -23,7 +24,7 @@ var ParallelTransform = function(maxParallel, opt, ontransform) {
 	this._ondrain = null;
 };
 
-ParallelTransform.prototype.__proto__ = Transform.prototype;
+util.inherits(ParallelTransform, Transform);
 
 ParallelTransform.prototype.destroy = function() {
 	if (this._destroyed) return;
