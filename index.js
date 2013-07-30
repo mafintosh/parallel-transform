@@ -59,7 +59,9 @@ ParallelTransform.prototype._flush = function(callback) {
 
 ParallelTransform.prototype._drain = function() {
 	while (this._buffer.get(this._bottom)) {
-		this.push(this._buffer.del(this._bottom++));
+		var data = this._buffer.del(this._bottom++);
+		if (data === SKIP_BUFFER) continue;
+		this.push(data);
 	}
 
 	if (!this._drained()) return;
