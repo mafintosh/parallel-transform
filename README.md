@@ -40,7 +40,10 @@ If you want to use your own stream options pass them as the second parameter
 ``` js
 var stream = transform(10, {objectMode:false}, function(data, callback) {
 	// data is now a buffer
+	callback(null, data);
 });
+
+fs.createReadStream('filename').pipe(stream).pipe(process.stdout);
 ```
 
 ## License
