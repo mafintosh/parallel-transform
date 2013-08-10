@@ -1,7 +1,7 @@
 # parallel-transform
 
 [Transform stream](http://nodejs.org/api/stream.html#stream_class_stream_transform_1) for Node.js that allows you to run your transforms
-in parallel without changing the order.
+in parallel without changing the order of the output.
 
 	npm install parallel-transform
 
@@ -34,7 +34,7 @@ If you run the above example you'll notice that it runs in parallel
 
 ## Stream options
 
-All tranforms are Node 0.10 streams. Per default they are created with the options `{objectMode:true}`.
+All transforms are Node 0.10 streams. Per default they are created with the options `{objectMode:true}`.
 If you want to use your own stream options pass them as the second parameter
 
 ``` js
