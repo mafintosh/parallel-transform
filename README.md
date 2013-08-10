@@ -22,7 +22,7 @@ for (var i = 0; i < 10; i++) {
 stream.end();
 
 stream.on('data', function(data) {
-	console.log(data.toString()); // prints 0,1,2,...
+	console.log(data); // prints 0,1,2,...
 });
 stream.on('end', function() {
 	console.log('stream has ended');
@@ -34,12 +34,12 @@ If you run the above example you'll notice that it runs in parallel
 
 ## Stream options
 
-It you want to pass in any transform stream options (like `objectMode`) pass them as the
-second parameter
+All tranforms are Node 0.10 streams. Per default they are created with the options `{objectMode:true}`.
+If you want to use your own stream options pass them as the second parameter
 
 ``` js
-var stream = transform(10, {objectMode:true}, function(data, callback) {
-	// the stream is now in objectMode and data can be an object
+var stream = transform(10, {objectMode:false}, function(data, callback) {
+	// data is now a buffer
 });
 ```
 

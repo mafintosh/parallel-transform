@@ -2,17 +2,20 @@ var Transform = require('stream').Transform;
 var cyclist = require('cyclist');
 var util = require('util');
 
-var SKIP_BUFFER = new Buffer(0);
-
 var ParallelTransform = function(maxParallel, opt, ontransform) {
 	if (!(this instanceof ParallelTransform)) return new ParallelTransform(maxParallel, opt, ontransform);
 
+	if (typeof maxParallel === 'function') {
+		ontransform = maxParallel;
+		opt = null;
+		maxParallel = 1;
+	}
 	if (typeof opt === 'function') {
 		ontransform = opt;
-		opt = {};
+		opt = null;
 	}
 
-	Transform.call(this, opt);
+	Transform.call(this, opt || {objectMode:true});
 
 	this._maxParallel = maxParallel;
 	this._ontransform = ontransform;
@@ -45,7 +48,7 @@ ParallelTransform.prototype._transform = function(chunk, enc, callback) {
 			return;
 		}
 
-		self._buffer.put(pos, data || SKIP_BUFFER);
+		self._buffer.put(pos, (data === undefined || data === null) ? null : data);
 		self._drain();
 	});
 
@@ -60,9 +63,9 @@ ParallelTransform.prototype._flush = function(callback) {
 };
 
 ParallelTransform.prototype._drain = function() {
-	while (this._buffer.get(this._bottom)) {
+	while (this._buffer.get(this._bottom) !== undefined) {
 		var data = this._buffer.del(this._bottom++);
-		if (data === SKIP_BUFFER) continue;
+		if (data === null) continue;
 		this.push(data);
 	}
 
