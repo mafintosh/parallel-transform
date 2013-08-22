@@ -1,6 +1,6 @@
 {
   "name": "parallel-transform",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "repository": "git://github.com/mafintosh/parallel-transform",
   "license": "MIT",
   "description": "Transform stream that allows you to run your transforms in parallel without changing the order",
