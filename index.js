@@ -15,7 +15,7 @@ var ParallelTransform = function(maxParallel, opt, ontransform) {
 		opt = null;
 	}
 
-	Transform.call(this, opt || {objectMode:true});
+	Transform.call(this, opt || {objectMode:true, highWaterMark:maxParallel});
 
 	this._maxParallel = maxParallel;
 	this._ontransform = ontransform;
