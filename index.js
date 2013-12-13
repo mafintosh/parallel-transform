@@ -2,20 +2,24 @@ var Transform = require('stream').Transform;
 var cyclist = require('cyclist');
 var util = require('util');
 
-var ParallelTransform = function(maxParallel, opt, ontransform) {
-	if (!(this instanceof ParallelTransform)) return new ParallelTransform(maxParallel, opt, ontransform);
+var ParallelTransform = function(maxParallel, opts, ontransform) {
+	if (!(this instanceof ParallelTransform)) return new ParallelTransform(maxParallel, opts, ontransform);
 
 	if (typeof maxParallel === 'function') {
 		ontransform = maxParallel;
-		opt = null;
+		opts = null;
 		maxParallel = 1;
 	}
-	if (typeof opt === 'function') {
-		ontransform = opt;
-		opt = null;
+	if (typeof opts === 'function') {
+		ontransform = opts;
+		opts = null;
 	}
 
-	Transform.call(this, opt || {objectMode:true, highWaterMark:maxParallel});
+	if (!opts) opts = {};
+	if (!opts.highWaterMark) opts.highWaterMark = Math.max(maxParallel, 16);
+	if (opts.objectMode !== false) opts.objectMode = true;
+
+	Transform.call(this, opts);
 
 	this._maxParallel = maxParallel;
 	this._ontransform = ontransform;
