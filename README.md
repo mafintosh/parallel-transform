@@ -46,6 +46,9 @@ var stream = transform(10, {objectMode:false}, function(data, callback) {
 fs.createReadStream('filename').pipe(stream).pipe(process.stdout);
 ```
 
+### Unordered
+Passing the option `{ordered:false}` will output the data as soon as it's processed by a transform, without waiting to respect the order.
+
 ## License
 
 MIT

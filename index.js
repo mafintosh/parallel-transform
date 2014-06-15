@@ -25,7 +25,8 @@ var ParallelTransform = function(maxParallel, opts, ontransform) {
 	this._ontransform = ontransform;
 	this._destroyed = false;
 	this._flushed = false;
-	this._buffer = cyclist(maxParallel);
+	this._ordered = opts.ordered !== false;
+	this._buffer = this._ordered ? cyclist(maxParallel) : [];
 	this._top = 0;
 	this._bottom = 0;
 	this._ondrain = null;
@@ -51,8 +52,12 @@ ParallelTransform.prototype._transform = function(chunk, enc, callback) {
 			self.destroy();
 			return;
 		}
-
-		self._buffer.put(pos, (data === undefined || data === null) ? null : data);
+		if (self._ordered) {
+			self._buffer.put(pos, (data === undefined || data === null) ? null : data);
+		}
+		else {
+			self._buffer.push(data);
+		}
 		self._drain();
 	});
 
@@ -67,11 +72,22 @@ ParallelTransform.prototype._flush = function(callback) {
 };
 
 ParallelTransform.prototype._drain = function() {
-	while (this._buffer.get(this._bottom) !== undefined) {
-		var data = this._buffer.del(this._bottom++);
-		if (data === null) continue;
-		this.push(data);
+	if (this._ordered) {
+		while (this._buffer.get(this._bottom) !== undefined) {
+			var data = this._buffer.del(this._bottom++);
+			if (data === null) continue;
+			this.push(data);
+		}
 	}
+	else {
+		while (this._buffer.length > 0) {
+			var data =  this._buffer.pop();
+			this._bottom++;
+			if (data === null) continue;
+			this.push(data);
+		}
+	}
+
 
 	if (!this._drained() || !this._ondrain) return;
 
