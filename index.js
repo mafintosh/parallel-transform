@@ -1,4 +1,5 @@
-var Transform = require('stream').Transform;
+var Transform = require('readable-stream').Transform;
+var inherits = require('inherits');
 var cyclist = require('cyclist');
 var util = require('util');
 
@@ -32,7 +33,7 @@ var ParallelTransform = function(maxParallel, opts, ontransform) {
 	this._ondrain = null;
 };
 
-util.inherits(ParallelTransform, Transform);
+inherits(ParallelTransform, Transform);
 
 ParallelTransform.prototype.destroy = function() {
 	if (this._destroyed) return;

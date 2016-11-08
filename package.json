@@ -13,6 +13,8 @@
   ],
   "author": "Mathias Buus Madsen <mathiasbuus@gmail.com>",
   "dependencies": {
-    "cyclist": "~0.2.2"
+    "cyclist": "~0.2.2",
+    "inherits": "^2.0.3",
+    "readable-stream": "^2.1.5"
   }
 }
