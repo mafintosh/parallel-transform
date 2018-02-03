@@ -1,9 +1,9 @@
-var Transform = require('readable-stream').Transform;
-var inherits = require('inherits');
-var cyclist = require('cyclist');
-var util = require('util');
+const Transform = require('readable-stream').Transform;
+const inherits = require('inherits');
+const cyclist = require('cyclist');
+const util = require('util');
 
-var ParallelTransform = function(maxParallel, opts, ontransform) {
+const ParallelTransform = function (maxParallel, opts, ontransform) {
 	if (!(this instanceof ParallelTransform)) return new ParallelTransform(maxParallel, opts, ontransform);
 
 	if (typeof maxParallel === 'function') {
@@ -42,8 +42,8 @@ ParallelTransform.prototype.destroy = function() {
 };
 
 ParallelTransform.prototype._transform = function(chunk, enc, callback) {
-	var self = this;
-	var pos = this._top++;
+	const self = this;
+	const pos = this._top++;
 
 	this._ontransform(chunk, function(err, data) {
 		if (self._destroyed) return;
@@ -73,16 +73,17 @@ ParallelTransform.prototype._flush = function(callback) {
 };
 
 ParallelTransform.prototype._drain = function() {
+	let data;
 	if (this._ordered) {
 		while (this._buffer.get(this._bottom) !== undefined) {
-			var data = this._buffer.del(this._bottom++);
+			data = this._buffer.del(this._bottom++);
 			if (data === null) continue;
 			this.push(data);
 		}
 	}
 	else {
 		while (this._buffer.length > 0) {
-			var data =  this._buffer.pop();
+			data = this._buffer.pop();
 			this._bottom++;
 			if (data === null) continue;
 			this.push(data);
@@ -92,13 +93,13 @@ ParallelTransform.prototype._drain = function() {
 
 	if (!this._drained() || !this._ondrain) return;
 
-	var ondrain = this._ondrain;
+	const ondrain = this._ondrain;
 	this._ondrain = null;
 	ondrain();
 };
 
 ParallelTransform.prototype._drained = function() {
-	var diff = this._top - this._bottom;
+	let diff = this._top - this._bottom;
 	return this._flushed ? !diff : diff < this._maxParallel;
 };
 
