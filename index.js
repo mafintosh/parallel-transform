@@ -1,4 +1,4 @@
-const Transform = require('readable-stream').Transform;
+const {Transform} = require('stream');
 const cyclist = require('cyclist');
 
 class ParallelTransform extends Transform {
