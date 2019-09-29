@@ -1,2 +1,7 @@
 node_modules
 yarn.lock
+.idea
+*.tgz
+*.js
+*.d.ts
+!jest.config.js

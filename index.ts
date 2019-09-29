@@ -1,7 +1,5 @@
 import { Transform, TransformOptions, WritableOptions } from "readable-stream";
-// import util from "util";
 import cyclist, { Cyclist } from "cyclist";
-// import inherits from "inherits";
 
 type ParallelTransformOpitons = TransformOptions & {
   ordered?: boolean,
