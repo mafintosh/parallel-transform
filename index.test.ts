@@ -1,7 +1,7 @@
 import assert from 'assert';
 import { pipeline, Readable, Transform } from 'readable-stream';
 // @ts-ignore
-import transform from './index.js';
+import transform from './index';
 
 describe('transform', () => {
   it('should emit pipeline callback with sync function', async () => {
