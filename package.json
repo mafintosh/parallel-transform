@@ -18,6 +18,7 @@
     "readable-stream": "^3.4.0"
   },
   "devDependencies": {
+    "@types/inherits": "^0.0.30",
     "@types/jest": "^24.0.18",
     "@types/node": "^12.7.8",
     "@types/readable-stream": "^2.3.4",
@@ -26,6 +27,6 @@
     "typescript": "^3.6.3"
   },
   "scripts": {
-    "test": "jest"
+    "test": "tsc --noEmit && jest"
   }
 }
