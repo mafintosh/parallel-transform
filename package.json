@@ -1,6 +1,7 @@
 {
-  "name": "parallel-transform",
-  "version": "1.2.0",
+  "name": "@piglovesyou/parallel-transform",
+  "version": "2.0.0",
+  "types": "./index.d.ts",
   "repository": "git://github.com/mafintosh/parallel-transform",
   "license": "MIT",
   "description": "Transform stream that allows you to run your transforms in parallel without changing the order",
@@ -11,10 +12,26 @@
     "preserve",
     "order"
   ],
+  "files": [
+    "index.d.ts",
+    "index.js"
+  ],
   "author": "Mathias Buus Madsen <mathiasbuus@gmail.com>",
   "dependencies": {
     "cyclist": "^1.0.1",
-    "inherits": "^2.0.3",
-    "readable-stream": "^2.1.5"
+    "readable-stream": "^3.4.0"
+  },
+  "devDependencies": {
+    "@types/inherits": "^0.0.30",
+    "@types/jest": "^24.0.18",
+    "@types/node": "^12.7.8",
+    "@types/readable-stream": "^2.3.4",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.1.0",
+    "typescript": "^3.6.3"
+  },
+  "scripts": {
+    "prepack": "tsc --declaration",
+    "test": "tsc --noEmit && jest"
   }
 }

@@ -1,4 +1,10 @@
-# parallel-transform
+# @piglovesyou/parallel-transform
+
+This is a maintained version of [parallel-transform](https://github.com/mafintosh/parallel-transform) which includes:
+
+* TypeScript Definition (with purely rewritten in TypeScript implementation)
+
+----
 
 [Transform stream](http://nodejs.org/api/stream.html#stream_class_stream_transform_1) for Node.js that allows you to run your transforms
 in parallel without changing the order of the output.
