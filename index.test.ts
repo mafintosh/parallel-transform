@@ -1,6 +1,5 @@
 import assert from 'assert';
 import { pipeline, Readable, Transform } from 'readable-stream';
-// @ts-ignore
 import transform from './index';
 
 describe('transform', () => {

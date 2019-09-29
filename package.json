@@ -1,5 +1,5 @@
 {
-  "name": "@piglovesyou/parallel-transform",
+  "name": "parallel-transform",
   "version": "2.0.0",
   "types": "./index.d.ts",
   "repository": "git://github.com/mafintosh/parallel-transform",
