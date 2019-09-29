@@ -15,11 +15,12 @@
   "dependencies": {
     "cyclist": "^1.0.1",
     "inherits": "^2.0.3",
-    "readable-stream": "^2.1.5"
+    "readable-stream": "^3.4.0"
   },
   "devDependencies": {
     "@types/jest": "^24.0.18",
     "@types/node": "^12.7.8",
+    "@types/readable-stream": "^2.3.4",
     "jest": "^24.9.0",
     "ts-jest": "^24.1.0",
     "typescript": "^3.6.3"
