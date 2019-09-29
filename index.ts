@@ -7,6 +7,8 @@ type ParallelTransformOpitons = TransformOptions & {
 
 type OnTransformFn = (data: any, callback: (error?: Error, data?: any) => void) => void;
 
+module.exports = transform;
+
 export class ParallelTransform extends Transform {
   private _destroyed: boolean;
   private _maxParallel: number;
