@@ -54,9 +54,9 @@ ParallelTransform.prototype._transform = function(chunk, enc, callback) {
 			return;
 		}
 		if (self._ordered) {
-			self._buffer.put(pos, (data === undefined || data === null) ? null : data);
+			self._buffer.put(pos, data == null ? null : data);
 		}
-		else {
+		else if ( data != null ) {
 			self._buffer.push(data);
 		}
 		self._drain();
