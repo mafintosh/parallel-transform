@@ -25,7 +25,7 @@ var ParallelTransform = function(maxParallel, opts, ontransform) {
 	this._maxParallel = maxParallel;
 	this._ontransform = ontransform;
 	this._destroyed = false;
-	this._flushed = false;
+	this._finishing = false;
 	this._ordered = opts.ordered !== false;
 	this._buffer = this._ordered ? cyclist(maxParallel) : [];
 	this._top = 0;
@@ -66,9 +66,9 @@ ParallelTransform.prototype._transform = function(chunk, enc, callback) {
 	this._ondrain = callback;
 };
 
-ParallelTransform.prototype._flush = function(callback) {
-	this._flushed = true;
-	this._ondrain = callback;
+ParallelTransform.prototype._final = function(callback) {
+	this._finishing = true;
+	this.ondrain = callback;
 	this._drain();
 };
 
@@ -99,7 +99,7 @@ ParallelTransform.prototype._drain = function() {
 
 ParallelTransform.prototype._drained = function() {
 	var diff = this._top - this._bottom;
-	return this._flushed ? !diff : diff < this._maxParallel;
+	return this._finishing ? !diff : diff < this._maxParallel;
 };
 
 module.exports = ParallelTransform;
